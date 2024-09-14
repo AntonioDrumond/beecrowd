@@ -46,3 +46,21 @@ public class Sort{
 		System.out.printf("0 0 ");
 	}
 }
+
+// Custo do algoritmo
+// Utilizando notacao LaTeX
+/*
+
+	\sum^{n-2}_{0}{(n-i)}
+
+	8 * ( \sum^{n-2}_{0}{n} - \sum^{n-2}_{0}{i} )
+
+	8 * ( n((n-2)-0+1) - \frac{(n-2)(n-2+1)}{2} )
+
+	8 / 2 * (n^2 - 5n + 2)
+
+	4n^2 - 20n + 8
+
+	Complexidade: \Theta(n^2)
+
+*/
