@@ -42,7 +42,7 @@ Stack* newStack(){
 }
 
 void delStack(Stack* d){
-	if(d!=NULL && d->ini!=NULL) delCell(d->ini);
+	if(d->ini!=NULL) delCell(d->ini);
 	d->fim = NULL;
 	d->ini= NULL;
 	free(d);
@@ -84,10 +84,12 @@ bool equals(const char* a, const char* b){
 	return (0==strcmp(a, b));
 }
 
-void reread(char* input){
-	if(input != NULL) free(input);
-	input = malloc(10*sizeof(char));
-	scanf(" %10[^\n]", input);
+void reread(char** input){
+	if(input != NULL){
+		if(*input != NULL) free(input);
+		*input = malloc(10*sizeof(char));
+		scanf(" %10[^\n]", *input);
+	}
 }
 
 
@@ -99,38 +101,44 @@ int main(){
 
 	Stack* general = newStack();
 
-	char* input = malloc(10* sizeof(char));
-	scanf(" %10[^\n]", input);
+	//char* input = malloc(10* sizeof(char));
+	//scanf(" %10[^\n]", input);
+
+	char* input;
+	reread(&input);
+
 	while(!equals(input, "0")){
 		if(equals(input, "-4")){
-			reread(input);
+			reread(&input);
 			while(!equals(input, "-1") && !equals(input, "-2") && !equals(input, "-3") && !equals(input, "-4") && !equals(input, "0")){
 				push(east, input);
-				reread(input);
+				reread(&input);
 			}
 		}
 		if(equals(input, "-3")){
-			reread(input);
+			reread(&input);
 			while(!equals(input, "-1") && !equals(input, "-2") && !equals(input, "-3") && !equals(input, "-4") && !equals(input, "0")){
 				push(north, input);
-				reread(input);
+				reread(&input);
 			}
 		}
 		if(equals(input, "-2")){
-			reread(input);
+			reread(&input);
 			while(!equals(input, "-1") && !equals(input, "-2") && !equals(input, "-3") && !equals(input, "-4") && !equals(input, "0")){
 				push(south, input);
-				reread(input);
+				reread(&input);
 			}
 		}
 		if(equals(input, "-1")){
-			reread(input);
+			reread(&input);
 			while(!equals(input, "-1") && !equals(input, "-2") && !equals(input, "-3") && !equals(input, "-4") && !equals(input, "0")){
 				push(west, input);
-				reread(input);
+				reread(&input);
 			}
 		}
 	}
+
+	free(input);
 
 	while(north->n>0 || south->n>0 || east->n>0 || west->n>0){
 		if(west->n>0) pop(west, general);
